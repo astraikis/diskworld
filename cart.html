@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Diskworld</title>
+    <title>Diskworld - Movies</title>
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,31 +81,45 @@
         </nav>
     </header>
 
-    <div id="splash">
-        <div id="splash-left">
-            <img src="./images/movies.jpg" id="splash-image" alt="Movies on a shelf.">
+    <div class="cart-container">
+      <div class="cart">
+        <h1>Cart</h1>
+        <div>
+          <img src="images/knives-out.jpg" alt="Knives Out blu-ray cover">
+          <div class="cart-detail">
+            <h2>Knives Out 4k Blu-ray</h2>
+            <p>Quantity: 1</p>
+            <span>
+                <input type="number" class="quantity-input" value="1">
+                <button>Apply</button>
+            </span>
+            <p>$11.99</p>
+            <p class="text-button-red">Remove from cart</p>
+          </div>
         </div>
-        <div id="splash-right">
-            <h1>Welcome to Diskworld!</h1>
-
-            <p>
-                We collect, catalogue, and sell Blu-rays and DVDs.
-            </p>
-
-            <h2>Featured collection:</h2>
-            <div class="collection-container">
-                <h3>The Simpsons Golden Age</h3>
-                <div class="collection-row">
-                    <img src="./images/simpsons-season-one.jpg" alt="Cover of The Simpsons season one DVD.">
-                    <img src="./images/simpsons-season-two.jpeg" alt="Cover of The Simpsons season two DVD.">
-                    <img src="./images/simpsons-season-three.jpeg" alt="Cover of The Simpsons season three DVD.">
-                </div>
-                <p class="muted">Plus 5 more.</p>
-                <a href="#">
-                    <button>View</button>
-                </a>
-            </div>
+        <div>
+          <img src="images/moneyball.jpg" alt="Moneyball blu-ray cover">
+          <div class="cart-detail">
+            <h2>Moneyball Blu-ray</h2>
+            <p>Quantity: 2</p>
+            <span>
+                <input type="number" class="quantity-input" value="2">
+                <button>Apply</button>
+            </span>
+            <p>2 x $8.99 = 17.98</p>
+            <p class="text-button-red">Remove from cart</p>
+          </div>
         </div>
+      </div>
+      <div class="checkout">
+        <h1>Checkout</h1>
+        <p><strong>Subtotal:</strong> $29.97</p>
+        <p><strong>Tax (6.75%):</strong> $2.02</p>
+        <p><strong>Shipping:</strong> $15.00</p>
+        <hr>
+        <h2>Total: $36.99</h2>
+        <button>Checkout</button>
+      </div>
     </div>
 
     <footer>
@@ -128,6 +141,17 @@
                 document.getElementById("toggle-up").style.display = "none";
             }
         }
+
+        function toggleFilterOptions(filter) {
+          const optionsVisible = document.getElementById(filter + "-options").style.display;
+          if (optionsVisible === "" || optionsVisible === "none") {
+            document.getElementById(filter + "-options").style.display = "flex";
+          } else if (optionsVisible === "flex") {
+            document.getElementById(filter + "-options").style.display = "none";
+          }
+        }
     </script>
   </body>
 </html>
+
+

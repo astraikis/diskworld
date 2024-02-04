@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diskworld - Movies</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+        <nav>
+            <a href="./index.html" id="brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0M8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1m4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5"/>
+                </svg>
+                Diskworld
+            </a>
+            <ul id="nav-left">
+                <li>
+                    <a href="products.html">Movies</a>
+                </li>
+                <li>
+                    <a href="#">Collections</a>
+                </li>
+                <li>
+                    <input type="text" class="search" placeholder="Search...">
+                    <button class="search-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+            <ul id="nav-right">
+                <li>
+                    <a href="#">Sign in</a>
+                </li>
+                <li>
+                    <a href="cart.html">Cart</a>
+                </li>
+            </ul>
+            <p id="toggle-menu" onClick="toggleMenu()">
+                <span id="toggle-menu-text">Open menu</span>
+                <svg id="toggle-down" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
+                <svg id="toggle-up" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+                    <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                </svg>
+            </p>
+            <div id="nav-mobile">
+                <ul>
+                    <li>
+                        <a href="products.html">Movies</a>
+                    </li>
+                    <li>
+                        <a href="#">Collections</a>
+                    </li>
+                    <li>
+                        <a href="#">Sign in</a>
+                    </li>
+                    <li>
+                        <a href="cart.html">Cart</a>
+                    </li>
+                    <li>
+                        <input type="text" class="search" placeholder="Search...">
+                        <button class="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="filter-container">
+      <h2>Filters</h2>
+      <div class="filters">
+      <div class="filter-dropdown">
+        <button id="type-button" onclick="toggleFilterOptions('type')">Type</button>
+        <div class="filter-dropdown-options" id="type-options">
+          <span>
+            <input type="checkbox" id="movies">
+            <label for="movies">Movies</label>
+          </span>
+          <span>
+            <input type="checkbox" id="tv">
+            <label for="tv">TV</label>
+          </span>
+        </div>
+      </div>
+      <div class="filter-dropdown">
+        <button id="format-button" onclick="toggleFilterOptions('format')">Format</button>
+        <div class="filter-dropdown-options" id="format-options">
+          <span>
+            <input type="checkbox" id="blu-ray">
+            <label for="blu-ray">Blu-ray</label>
+          </span>
+          <span>
+            <input type="checkbox" id="4k">
+            <label for="4k">4k Blu-ray</label>
+          </span>
+          <span>
+            <input type="checkbox" id="dvd">
+            <label for="dvd">DVD</label>
+          </span>
+        </div>
+      </div>
+      <div class="filter-dropdown">
+        <button id="price-button" onclick="toggleFilterOptions('price')">Price</button>
+        <div class="filter-dropdown-options" id="price-options">
+          <span>
+            <label for="min">Min ($):</label>
+            <input type="text" id="min">
+          </span>
+          <span>
+            <label for="max">Max ($):</label>
+            <input type="text" id="max">
+          </span>
+        </div>
+      </div>
+      <div class="filter-dropdown">
+        <button id="sort-button" onclick="toggleFilterOptions('sort')">Sort by</button>
+        <div class="filter-dropdown-options" id="sort-options">
+          <span>
+            <select name="sort" id="sort">
+              <option value="popular">Most popular</option>
+              <option value="lowest">Lowest price</option>
+              <option value="highest">Highest price</option>
+            </select>
+          </span>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div id="product-grid">
+      <div class="product">
+        <img src="images/knives-out.jpg" alt="Knives Out 4k cover">
+        <h3>Knives Out 4k Blu-ray</h3>
+        <p>$11.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/psych.jpg" alt="Pysch complete collection cover">
+        <h3>Pysch: The Complete Collection Blu-ray</h3>
+        <p>$79.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/moneyball.jpg" alt="Moneyball cover">
+        <h3>Moneyball Blu-ray</h3>
+        <p>$8.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/simpsons-season-one.jpg" alt="The Simpsons season one cover">
+        <h3>The Simpsons: The Complete First Season</h3>
+        <p>$13.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/seinfeld.jpg" alt="Seinfeld complete collection cover">
+        <h3>Seinfeld: The Complete Series DVD</h3>
+        <p>$44.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/antman.jpg" alt="Ant-Man and the Wasp: Quantumania 4k Blu-ray cover">
+        <h3>Ant-Man and the Wasp: Quantumania 4k Blu-ray</h3>
+        <p>$29.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/knives-out.jpg" alt="Knives Out 4k cover">
+        <h3>Knives Out 4k Blu-ray</h3>
+        <p>$11.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/psych.jpg" alt="Pysch complete collection cover">
+        <h3>Pysch: The Complete Collection Blu-ray</h3>
+        <p>$79.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/moneyball.jpg" alt="Moneyball cover">
+        <h3>Moneyball Blu-ray</h3>
+        <p>$8.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/simpsons-season-one.jpg" alt="The Simpsons season one cover">
+        <h3>The Simpsons: The Complete First Season</h3>
+        <p>$13.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/seinfeld.jpg" alt="Seinfeld complete collection cover">
+        <h3>Seinfeld: The Complete Series DVD</h3>
+        <p>$44.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+      <div class="product">
+        <img src="images/antman.jpg" alt="Ant-Man and the Wasp: Quantumania 4k Blu-ray cover">
+        <h3>Ant-Man and the Wasp: Quantumania 4k Blu-ray</h3>
+        <p>$29.99</p>
+        <a href="details.html">
+          <button>View</button>
+        </a>
+      </div>
+
+    </div>
+
+    <footer>
+        <p>© Diskworld 2024</p>
+    </footer>
+    
+    <script>
+        function toggleMenu() {
+            const menuVisible = document.getElementById("nav-mobile").style.display;
+            if (menuVisible === "" || menuVisible !== "block") {
+                document.getElementById("nav-mobile").style.display = "block";
+                document.getElementById("toggle-menu-text").innerText = "Close menu";
+                document.getElementById("toggle-down").style.display = "none";
+                document.getElementById("toggle-up").style.display = "inline-block";
+            } else {
+                document.getElementById("nav-mobile").style.display = "none";
+                document.getElementById("toggle-menu-text").innerText = "Open menu";
+                document.getElementById("toggle-down").style.display = "inline-block";
+                document.getElementById("toggle-up").style.display = "none";
+            }
+        }
+
+        function toggleFilterOptions(filter) {
+          const optionsVisible = document.getElementById(filter + "-options").style.display;
+          if (optionsVisible === "" || optionsVisible === "none") {
+            document.getElementById(filter + "-options").style.display = "flex";
+          } else if (optionsVisible === "flex") {
+            document.getElementById(filter + "-options").style.display = "none";
+          }
+        }
+    </script>
+  </body>
+</html>
+

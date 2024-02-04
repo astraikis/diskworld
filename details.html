@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Diskworld</title>
+    <title>Diskworld - Movies</title>
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,31 +81,33 @@
         </nav>
     </header>
 
-    <div id="splash">
-        <div id="splash-left">
-            <img src="./images/movies.jpg" id="splash-image" alt="Movies on a shelf.">
+    <div class="product-detail">
+      <div id="product-detail-img">
+        <img src="./images/psych-2.jpg" alt="Psych complete series blu-ray cover">
+      </div>
+      <div id="product-detail-description">
+        <h1>Pysch: The Complete Collection Blu-ray</h1>
+        <h3>8 Seasons, 3 Movies, 5396 Minutes</h3>
+        <p>Phony psychic Shawn Spencer cons his way into a consultant job at the Santa Barbara Police Department, and with the help of his best friend Gus, solves a series of incredible cases.</p>
+        <a href="https://www.amazon.com/Psych-Complete-Collection-Various-Contributors/dp/B0CGD4GWC8/ref=sr_1_1?crid=279ITX0JCZ7LX&keywords=psych+complete+series+blu+ray&sprefix=psych+compl%2Caps%2C340&sr=8-1" target="_blank" rel="noopener noreferrer">View on Amazon</a><br><br>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+          </svg>
+          Add to cart
+        </button>
+        
+        <h2>Related products</h2>
+        <div class="related-container">
+          <div>
+            <img src="./images/monk.jpg" alt="Monk season five blu-ray cover">
+            <p>Monk: The Complete Fifth Season Blu-ray</p>
+            <a href="#">
+              <button>View</button>
+            </a>
+          </div>
         </div>
-        <div id="splash-right">
-            <h1>Welcome to Diskworld!</h1>
-
-            <p>
-                We collect, catalogue, and sell Blu-rays and DVDs.
-            </p>
-
-            <h2>Featured collection:</h2>
-            <div class="collection-container">
-                <h3>The Simpsons Golden Age</h3>
-                <div class="collection-row">
-                    <img src="./images/simpsons-season-one.jpg" alt="Cover of The Simpsons season one DVD.">
-                    <img src="./images/simpsons-season-two.jpeg" alt="Cover of The Simpsons season two DVD.">
-                    <img src="./images/simpsons-season-three.jpeg" alt="Cover of The Simpsons season three DVD.">
-                </div>
-                <p class="muted">Plus 5 more.</p>
-                <a href="#">
-                    <button>View</button>
-                </a>
-            </div>
-        </div>
+      </div>
     </div>
 
     <footer>
@@ -128,6 +129,16 @@
                 document.getElementById("toggle-up").style.display = "none";
             }
         }
+
+        function toggleFilterOptions(filter) {
+          const optionsVisible = document.getElementById(filter + "-options").style.display;
+          if (optionsVisible === "" || optionsVisible === "none") {
+            document.getElementById(filter + "-options").style.display = "flex";
+          } else if (optionsVisible === "flex") {
+            document.getElementById(filter + "-options").style.display = "none";
+          }
+        }
     </script>
   </body>
 </html>
+
