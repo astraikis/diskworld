@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diskworld</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+        <nav>
+            <a href="./index.html" id="brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0M8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1m4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5"/>
+                </svg>
+                Diskworld [Admin]
+            </a>
+            <ul id="nav-right">
+                <li>
+                    <a href="bulk-upload.html">Bulk upload</a>
+                </li>
+                <li>
+                    <a href="product-edit.html">Product Edit</a>
+                </li>
+                <li>
+                    <button>Sign out</button>
+                </li>
+            </ul>
+            <p id="toggle-menu" onClick="toggleMenu()">
+                <span id="toggle-menu-text">Open menu</span>
+                <svg id="toggle-down" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
+                <svg id="toggle-up" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+                    <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                </svg>
+            </p>
+            <div id="nav-mobile">
+                <ul>
+                    <li>
+                        <a href="bulk-upload.html">Bulk upload</a>
+                    </li>
+                    <li>
+                        <a href="product-edit.html">Product Edit</a>
+                    </li>
+                    <li>
+                        <button>Sign out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="bulk-upload">
+        <div class="div-half">
+            <h1>Bulk upload</h1>
+            <form>
+                <label>Select JSON:</label>
+                <br>
+                <input type="file" accept="application/JSON">
+                <br>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <div class="div-half">
+            <h2>JSON example:</h2>
+            <p id="format-example">
+{
+    {
+        "name": "Raiders of the Lost Ark 4k Blu-ray",
+        "description": "Indiana Jones hunts down the Lost Ark.",
+        "image": "https://images.static-bluray.com/movies/covers/284284_large.jpg?t=1679951338",
+        "category": "4k Blu-ray",
+        "price": 22.99,
+    },
+    {
+        "name": "Raiders of the Lost Ark 4k Blu-ray",
+        "description": "Indiana Jones hunts down the Lost Ark.",
+        "image": "https://images.static-bluray.com/movies/covers/284284_large.jpg?t=1679951338",
+        "category": "4k Blu-ray",
+        "price": 22.99,
+    },
+    {
+        "name": "Raiders of the Lost Ark 4k Blu-ray",
+        "description": "Indiana Jones hunts down the Lost Ark.",
+        "image": "https://images.static-bluray.com/movies/covers/284284_large.jpg?t=1679951338",
+        "category": "4k Blu-ray",
+        "price": 22.99,
+    },
+}
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© Diskworld 2024</p>
+    </footer>
+    <script>
+        function toggleMenu() {
+            const menuVisible = document.getElementById("nav-mobile").style.display;
+            if (menuVisible === "" || menuVisible !== "block") {
+                document.getElementById("nav-mobile").style.display = "block";
+                document.getElementById("toggle-menu-text").innerText = "Close menu";
+                document.getElementById("toggle-down").style.display = "none";
+                document.getElementById("toggle-up").style.display = "inline-block";
+            } else {
+                document.getElementById("nav-mobile").style.display = "none";
+                document.getElementById("toggle-menu-text").innerText = "Open menu";
+                document.getElementById("toggle-down").style.display = "inline-block";
+                document.getElementById("toggle-up").style.display = "none";
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -21,12 +21,17 @@ body {
     color: var(--grey-medium);
 }
 
+.hidden {
+  display: none;
+}
+
 button {
     background-color: var(--purple-dark);
     color: var(--white);
     border: 0px;
     padding: 0.5rem 1rem;
     border-radius: var(--radius);
+    cursor: pointer;
 }
 
 .text-button-red {
@@ -333,6 +338,83 @@ nav a:hover {
 
 .cart-detail button {
   margin-left: 0.5rem;
+}
+
+/* Bulk upload */
+
+#bulk-upload {
+  display: inline-flex;
+  width: 100%;
+}
+
+.div-half {
+  width: 50%;
+  padding: 0 5rem;
+}
+
+.div-half form input {
+  padding: 1rem 0;
+}
+
+#bulk-upload div:first-child {
+  width: 20% !important;
+}
+
+#format-example {
+  white-space: pre-wrap;
+  font-family: monospace;
+  color: var(--grey-light);
+}
+
+/* Product edit */
+
+#product-edit {
+  margin: 1rem 5rem;
+}
+
+.edit-filter {
+  padding-bottom: 1rem;
+  display: inline-block;
+}
+
+.edit-filter button {
+  margin-right: 0.5rem;
+}
+
+#edit {
+  margin-bottom: 2rem;
+}
+
+#edit input {
+  margin-bottom: 1rem;
+}
+
+#add {
+  margin-bottom: 2rem;
+}
+
+#add input {
+  margin-bottom: 1rem;
+}
+
+table {
+  background-color: var(--white);
+  color: var(--black);
+  padding: 1rem;
+  border-collapse: collapse;
+  border-radius: var(--radius);
+  width: 100%;
+}
+
+td, th {
+  max-width: 200px;
+  overflow: hidden;
+  padding: 1rem;
+  border: 1px solid var(--grey-medium);
+}
+
+td {
+  cursor: pointer;
 }
 
 /* Footer */
