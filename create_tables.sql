@@ -1,0 +1,43 @@
+CREATE TABLE users (
+	id INTEGER PRIMARY KEY NOT NULL,
+	created NUMERIC NOT NULL,
+	name TEXT NOT NULL,
+	email TEXT NOT NULL UNIQUE,
+	passwrd TEXT NOT NULL,
+	isAdmin INTEGER NOT NULL
+);
+
+CREATE TABLE categories (
+	id INTEGER PRIMARY KEY NOT NULL,
+	name TEXT NOT NULL UNIQUE,
+	ordr INTEGER NOT NULL UNIQUE
+);
+
+CREATE TABLE carts (
+	id INTEGER PRIMARY KEY NOT NULL,
+	status TEXT NOT NULL,
+	created NUMERIC NOT NULL,
+	user INTEGER  NOT NULL,
+	FOREIGN KEY (user)
+		REFERENCES users (id)
+);
+
+CREATE TABLE products (
+	id INTEGER PRIMARY KEY NOT NULL,
+	name TEXT NOT NULL UNIQUE,
+	description TEXT,
+	image TEXT,
+	price REAL NOT NULL,
+	category INTEGER NOT NULL,
+	featured INTEGER NOT NULL,
+	FOREIGN KEY (category)
+		REFERENCES categories (id)
+);
+
+CREATE TABLE cartProducts (
+	id INTEGER PRIMARY KEY NOT NULL,
+	quantity INTEGER NOT NULL,
+	cart INTEGER NOT NULL,
+	FOREIGN KEY (cart)
+		REFERENCES carts (id)
+);
