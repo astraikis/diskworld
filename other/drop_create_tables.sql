@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS cartProducts;
+
+DROP TABLE IF EXISTS categories;
+
+DROP TABLE  IF EXISTS products;
+
+DROP TABLE IF EXISTS orders;
+
+DROP TABLE IF EXISTS carts;
+
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
 	id INTEGER PRIMARY KEY NOT NULL,
 	created NUMERIC NOT NULL,
@@ -17,7 +29,7 @@ CREATE TABLE carts (
 	id INTEGER PRIMARY KEY NOT NULL,
 	status TEXT NOT NULL,
 	created NUMERIC NOT NULL,
-	user INTEGER  NOT NULL,
+	user INTEGER NOT NULL,
 	FOREIGN KEY (user)
 		REFERENCES users (id)
 );
@@ -28,16 +40,29 @@ CREATE TABLE products (
 	description TEXT,
 	image TEXT,
 	price REAL NOT NULL,
-	category INTEGER NOT NULL,
 	featured INTEGER NOT NULL,
-	FOREIGN KEY (category)
-		REFERENCES categories (id)
+	category TEXT
 );
 
 CREATE TABLE cartProducts (
 	id INTEGER PRIMARY KEY NOT NULL,
+	product INTEGER NOT NULL,
 	quantity INTEGER NOT NULL,
 	cart INTEGER NOT NULL,
+	FOREIGN KEY (product)
+		REFERENCES products (id),
+	FOREIGN KEY (cart)
+		REFERENCES carts (id)
+);
+
+CREATE TABLE orders (
+	id INTEGER PRIMARY KEY NOT NULL,
+	user INTEGER NOT NULL,
+	created NUMERIC NOT NULL,
+	price REAL NOT NULL, 
+	cart INTEGER NOT NULL,
+	FOREIGN KEY (user)
+		REFERENCES users (id),
 	FOREIGN KEY (cart)
 		REFERENCES carts (id)
 );
