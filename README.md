@@ -7,7 +7,7 @@
 
 ## How to test:
 
-1. Execute the `drop_create_tables.sql` file in the database.
+1. Execute the `drop_create_tables.sql` file (found in the "other" folder) in the database.
 2. Run `node app.js`.
 3. Open `http://localhost:3000/pages/register.html`.
 4. Enter a name, email, and password. Check the admin checkbox, and then click "Register".
