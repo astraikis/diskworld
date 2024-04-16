@@ -1,0 +1,28 @@
+{
+    "disks": [
+        {
+            "name": "Moneyball",
+            "description": "Oakland As general manager Billy Beanes successful attempt to assemble a baseball team on a lean budget by employing computer-generated analysis to acquire new players.",
+            "category": "Blu-ray",
+            "image": "https://www.film-game.eu/i/?i=0931063.jpg",
+            "price": 7.99,
+            "featured": 1   
+        },
+        {
+            "name": "Horrible Bosses",
+            "description": "Three friends conspire to murder their awful bosses when they realize they are standing in the way of their happiness.",
+            "category": "Blu-ray",
+            "image": "https://cdn.cdon.com/media-dynamic/images/product/movie/blu-ray/image0/horrible_bosses_blu-ray_nordic-17043560-.jpeg",
+            "price": 9.99,
+            "featured": 1   
+        },
+        {
+            "name": "Casino",
+            "description": "In Las Vegas, two best friends - a casino executive and a mafia enforcer - compete for a gambling empire and a fast-living, fast-loving socialite.",
+            "category": "4k Blu-ray",
+            "image": "https://cdn.hmv.com/r/w-960/hmv/files/9d/9dc9bfe0-fcc9-4f96-a74e-5e2ba9206dbd.637081566150000000.jpg",
+            "price": 14.99,
+            "featured": 1   
+        }
+    ]
+}

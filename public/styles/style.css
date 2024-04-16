@@ -298,6 +298,14 @@ nav a:hover {
   width: 175px;
 }
 
+#category-filter {
+  margin-bottom: 2rem;
+}
+
+#category-filter button {
+  margin-top: 1rem;
+}
+
 /* Cart */
 
 .cart-container {
@@ -413,10 +421,6 @@ nav a:hover {
 
 /* Product edit */
 
-#product-edit {
-  margin: 1rem 5rem;
-}
-
 .edit-filter {
   padding-bottom: 1rem;
   display: inline-block;
@@ -440,6 +444,26 @@ nav a:hover {
 
 #add input {
   margin-bottom: 1rem;
+}
+
+#add-form {
+  display: none;
+}
+
+.title-icon {
+  margin-left: 0.5rem;
+}
+
+.title-button {
+  cursor: pointer;
+}
+
+#categories {
+  margin-top: 1rem;
+}
+
+#categories button:not(:last-child) {
+  margin-right: 1rem;
 }
 
 table {
@@ -490,12 +514,18 @@ td {
   margin-top: 1rem;
 }
 
+/* Bulk edit */
+
+#upload-form label {
+  margin-bottom: 1rem;
+}
+
 /* Footer */
 
 footer {
     color: var(--grey-medium);
     text-align: center;
-    margin: 0 1rem;
+    margin: 2rem 0;
 }
 
 /* Media queries */

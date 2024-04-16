@@ -2,6 +2,9 @@ const productTable = document.getElementById("products");
 const addForm = document.getElementById("add-form");
 const editForm = document.getElementById("edit-form");
 const editFormContainer = document.getElementById("edit-form-container");
+const productTitle = document.getElementById("product-add-title");
+const addCategoryForm = document.getElementById("add-category");
+const categories = document.getElementById("categories");
 
 const JWT = localStorage.getItem("JWT");
 let disks;
@@ -11,6 +14,7 @@ const orderDiv = document.getElementById("orders");
 function populate() {
     getMovies();
     getOrders();
+    getCategories();
 }
 
 function getOrders() {
@@ -19,7 +23,6 @@ function getOrders() {
         .then(data => {
             for (let i = 0; i < data.length; i++) {
                 let order = data[i];
-                console.log(order);
 
                 const orderContainer = document.createElement("div");
                 orderContainer.className = "order-container";
@@ -89,6 +92,50 @@ function getMovies() {
         });
 }
 
+function getCategories() {
+    fetch("/categories/get-all")
+        .then(res => res.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                const category = document.createElement("button");
+                category.innerText = data[i]["name"];
+
+                categories.appendChild(category);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+productTitle.onclick = e => {
+    if (addForm.style.display == "none") {
+        addForm.style.display = "block";
+    } else {
+        addForm.style.display = "none";
+    }
+}
+
+addCategoryForm.onsubmit = e => {
+    e.preventDefault();
+
+    fetch("/categories/add", {
+        method: "post",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + JWT
+        },
+        body: JSON.stringify({ "category": document.getElementById("category").value })})
+        .then((res) => { 
+            console.log(res);
+            window.location.reload();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 addForm.onsubmit = e => {
     e.preventDefault();
 
@@ -112,7 +159,8 @@ addForm.onsubmit = e => {
         method: "post",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + JWT
         },
         body: JSON.stringify(data)})
         .then((res) => {
@@ -148,7 +196,8 @@ editForm.onsubmit = e => {
         method: "put",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + JWT
         },
         body: JSON.stringify(data)})
         .then((res) => { 

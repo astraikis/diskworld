@@ -3,43 +3,24 @@ const sqlite3 = require("sqlite3");
 const sqlite = require("sqlite");
 const jwt = require("jsonwebtoken");
 
+const utils = require("../utils");
+
 const router = express.Router();
 
-const secretKey = "verysecretkey";
-
 /**
- * Connects to SQLITE3 database.
- * 
- * @returns {Object} - Database object for connection.
+ * Gets orders for all users.
+ * Admin authorization required.
  */
-async function DBConnect() {
-    const db = await sqlite.open({
-        filename: 'main.db',
-        driver: sqlite3.Database
-    });
-    return db;
-}
+router.get("/get-all-orders", utils.authenticateToken, async (req, res) => {
+    if (req.user["isAdmin"] === 0) {
+        return res.status(403).send("Unable to get orders. Requesting user is not admin.");
+    }
 
-// Middleware for token verification
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-  
-    if (!token) return res.status(401).send('Token required');
-  
-    jwt.verify(token, secretKey, (err, user) => {
-        if (err) return res.status(403).send('Invalid or expired token');
-        req.user = user;
-        next();
-    });
-};
-
-router.get("/get-all-orders", authenticateToken, async (req, res) => {
     try {
         let orderRes = [];
 
         let qry = "SELECT * FROM orders;";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let orders = await db.all(qry);
         
         for (let i = 0; i < orders.length; i++) {
@@ -71,18 +52,22 @@ router.get("/get-all-orders", authenticateToken, async (req, res) => {
         res.status(200).json(orderRes);
     } catch (err) {
         console.log(err);
-        res.status(500).send("Unable to get orders.")
+        res.status(500).send("Unable to get orders.");
     }
 });
 
-router.get("/get-all/:JWT", async (req, res) => {
-    const userId = jwt.decode(req.params.JWT)["id"];
+/**
+ * Gets all orders for a user.
+ * Authorization required.
+ */
+router.get("/get", utils.authenticateToken, async (req, res) => {
+    const userId = req.user.id;
     
     try {
         let orderRes = [];
 
         let qry = "SELECT * FROM orders WHERE user = " + userId + ";";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let orders = await db.all(qry);
         
         for (let i = 0; i < orders.length; i++) {
@@ -117,13 +102,17 @@ router.get("/get-all/:JWT", async (req, res) => {
     }
 });
 
-router.post("/order", async (req, res) => {
-    const { id, JWT, price } = req.body;
-    const userId = jwt.decode(JWT)["id"];
+/**
+ * Places order.
+ * Authorization required.
+ */
+router.post("/order", utils.authenticateToken, async (req, res) => {
+    const { id, price } = req.body;
+    const userId = req.user.id;
 
     try {
         let qry = "SELECT * FROM carts WHERE id = " + id + ";";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let cart = await db.all(qry);
         
         if (cart[0]["user"] !== userId) {

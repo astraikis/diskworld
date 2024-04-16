@@ -3,10 +3,9 @@ const JWT = localStorage.getItem("JWT");
 const orderDiv = document.getElementById("orders");
 
 function getOrders() {
-    fetch("/orders/get-all/" + JWT)
+    fetch("/orders/get", { headers: { "Authorization": "Bearer " + JWT }})
         .then(res => res.json())
         .then(data => {
-            // console.log(data);
             for (let i = 0; i < data.length; i++) {
                 let order = data[i];
 

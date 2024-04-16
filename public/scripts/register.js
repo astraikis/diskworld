@@ -3,11 +3,16 @@ const registerForm = document.getElementById("register");
 registerForm.onsubmit = e => {
     e.preventDefault();
 
+    let isAdmin = 0;
+    if (document.getElementById("is-admin").checked) {
+        isAdmin = 1;
+    }
+
     const data = {
         "name": document.getElementById("name").value,
         "email": document.getElementById("email").value,
         "password": document.getElementById("password").value,
-        "isAdmin": document.getElementById("is-admin").value
+        "isAdmin": isAdmin
     }
 
     fetch("/users/register", {

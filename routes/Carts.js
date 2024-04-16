@@ -1,45 +1,20 @@
 const express = require("express");
-const sqlite3 = require("sqlite3");
-const sqlite = require("sqlite");
 const jwt = require("jsonwebtoken");
+
+const utils = require("../utils");
 
 const router = express.Router();
 
-const secretKey = "verysecretkey";
-
 /**
- * Connects to SQLITE3 database.
- * 
- * @returns {Object} - Database object for connection.
+ * Get current cart for user.
+ * Authorization required.
  */
-async function DBConnect() {
-    const db = await sqlite.open({
-        filename: 'main.db',
-        driver: sqlite3.Database
-    });
-    return db;
-}
-
-// Middleware for token verification
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-  
-    if (!token) return res.status(401).send('Token required');
-  
-    jwt.verify(token, secretKey, (err, user) => {
-        if (err) return res.status(403).send('Invalid or expired token');
-        req.user = user;
-        next();
-    });
-};
-
-router.get("/get", authenticateToken, async (req, res) => {
+router.get("/get", utils.authenticateToken, async (req, res) => {
     const userId = req.user.id;
 
     try {
         let qry = "SELECT * FROM users WHERE id = " + userId +";";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let user = await db.all(qry);
         
         if (!user) {
@@ -66,13 +41,17 @@ router.get("/get", authenticateToken, async (req, res) => {
     }
 });
 
-router.post("/add", authenticateToken, async (req, res) => {
+/**
+ * Add disk to cart.
+ * Authorization required.
+ */
+router.post("/add", utils.authenticateToken, async (req, res) => {
     const userId = req.user.id;
     const id = req.body["id"];
 
     try {
         let qry = "SELECT * FROM carts WHERE user = " + userId + " AND status = 'new';";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let cart = await db.all(qry);
         
         if (cart.length === 0) {
@@ -110,15 +89,16 @@ router.post("/add", authenticateToken, async (req, res) => {
     }
 });
 
-router.delete("/remove", async (req, res) => {
-    const { id, JWT } = req.body;
-    const userId = jwt.decode(JWT)["id"];
-
-    console.log(req.body);
+/**
+ * Remove disk from cart.
+ */
+router.delete("/remove", utils.authenticateToken, async (req, res) => {
+    const id = req.body["id"];
+    const userId = req.user.id;
 
     try {
         let qry = "SELECT id FROM carts WHERE user = " + userId + " AND status = 'new';";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let cart = await db.all(qry);
         let cartId = cart[0]["id"];
 

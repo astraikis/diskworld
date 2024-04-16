@@ -29,7 +29,9 @@ CREATE TABLE products (
 	image TEXT,
 	price REAL NOT NULL,
 	featured INTEGER NOT NULL,
-	category TEXT
+	category TEXT NOT NULL,
+	FOREIGN KEY (category)
+		REFERENCES categories (name)
 );
 
 CREATE TABLE cartProducts (

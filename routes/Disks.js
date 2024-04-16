@@ -1,36 +1,18 @@
 const express = require("express");
-const sqlite3 = require("sqlite3");
-const sqlite = require("sqlite");
 const fs = require("fs");
+
+const utils = require("../utils");
 
 const router = express.Router();
 
-// Connect to database
-// const db = new sqlite3.Database("./main.db", sqlite3.OPEN_READWRITE, err => {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log("Connected to database.")
-//     }
-// });
-
 /**
- * Connects to SQLITE3 database.
- * 
- * @returns {Object} - Database object for connection.
+ * Gets all disks.
+ * No authorization required.
  */
-async function DBConnect() {
-    const db = await sqlite.open({
-        filename: 'main.db',
-        driver: sqlite3.Database
-    });
-    return db;
-}
-
 router.get("/all", async (req, res) => {
     try {
         let qry = "SELECT * FROM PRODUCTS;";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let products = await db.all(qry);
         res.status(200).send(products);
     } catch (err) {
@@ -39,11 +21,32 @@ router.get("/all", async (req, res) => {
     }
 });
 
+/**
+ * Get all disks from given category.
+ * No authorization required.
+ */
+router.get("/category/:category", async (req, res) => {
+    const cleanedCategory = req.params.category.replaceAll("+", " ");
+    
+    try {
+        let qry = `SELECT * FROM PRODUCTS WHERE category = '${cleanedCategory}';`;
+        let db = await utils.DBConnect();
+        let products = await db.all(qry);
+        res.status(200).send(products);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Unable to get disks.");
+    }
+});
+
+/**
+ * Get featured disks.
+ * No authorization required.
+ */
 router.get("/featured", async (req, res) => {
-    let db = await DBConnect();
     try {
         let qry = "SELECT * FROM PRODUCTS WHERE featured = 1;";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let products = await db.all(qry);
         res.status(200).send(products);
     } catch (err) {
@@ -52,11 +55,14 @@ router.get("/featured", async (req, res) => {
     }
 });
 
+/**
+ * Get disk with id from url parameter.
+ * No authorization required.
+ */
 router.get("/disk/:id", async (req, res) => {
-    let db = await DBConnect();
     try {
         let qry = "SELECT * FROM PRODUCTS WHERE id = " + req.params.id + ";";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         let product = await db.all(qry);
         res.status(200).send(product);
     } catch (err) {
@@ -65,11 +71,15 @@ router.get("/disk/:id", async (req, res) => {
     }
 });
 
+/**
+ * Get disks with name like query from url parameters.
+ * No authorization required.
+ */
 router.get("/search/:query", async (req, res) => {
     const query = "%" + req.params.query + "%";  
     try {
         let qry = "SELECT * FROM products WHERE name LIKE '" + query +"';";
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         const disks = await db.all(qry);
         res.status(200).send(disks);
     } catch (err) {
@@ -78,12 +88,26 @@ router.get("/search/:query", async (req, res) => {
     }
 });
 
-router.post("/add", async (req, res) => {
+/**
+ * Add disk.
+ * Admin authorization required.
+ */
+router.post("/add", utils.authenticateToken, async (req, res) => {
+    if (req.user["isAdmin"] === 0) {
+        return res.status(403).send("Unable to get orders. Requesting user is not admin.");
+    }
+    
     try {
-        let qry = 
+        let qry = `SELECT * FROM categories WHERE name = '${req.body["category"]}';`;
+        let db = await utils.DBConnect();
+        let categories = await db.all(qry);
+        if (categories.length === 0) {
+            return res.status(400).send("Unable to add disk.")
+        }        
+
+        qry = 
             "INSERT INTO products (name, description, image, price, category, featured) " +
             `VALUES ('${req.body["name"]}', '${req.body["description"]}', '${req.body["image"]}', ${req.body["price"]}, '${req.body["category"]}', ${req.body["featured"]});`;
-        let db = await DBConnect();
         await db.exec(qry);
 
         qry = `SELECT id FROM products WHERE name = '${req.body["name"]}'`;
@@ -114,71 +138,25 @@ router.post("/add", async (req, res) => {
                 console.log("Successfully created JS file.");
             });
         });
+
+        res.status(200).send("Disk successfully added.");
     } catch (err) {
         console.log(err);
         res.status(500).send("Unable to add disk.");
     }
-
-    // db.run(
-    //     "INSERT INTO products (name, description, image, price, category, featured) VALUES (?, ?, ?, ?, ?, ?)",
-    //     [req.body["name"], req.body["description"], req.body["image"], req.body["price"], req.body["category"], req.body["featured"]],
-    //     err => {
-    //         if (err) {
-    //             console.log(err);
-    //             res.status(400);
-    //             res.send("Unable to add product.")
-    //         } else {
-    //             // Get new disk id
-    //             db.all("SELECT id FROM products WHERE name = '" + req.body["name"] + "'", [], (err, data) => {
-    //                 if (err) {
-    //                     console.log(err);
-    //                     return;
-    //                 }
-
-    //                 console.log(data);
-
-    //                 const id = data[0]["id"];
-
-    //                 // Make frontend files
-    //                 fs.readFile("./public/pages/disks/disk-template.html", "utf-8", (err, res) => {
-    //                     const htmlContents = res.replace(/{{id}}/g, id);
-    //                     fs.writeFile(`./public/pages/disks/${id}.html`, htmlContents, err => {
-    //                         if (err) {
-    //                             console.log(err);
-    //                             return;
-    //                         }
-                            
-    //                         console.log("Successfully created HTML file.");
-    //                     });
-    //                 });
-
-    //                 fs.readFile("./public/pages/disks/disk-template.js", "utf-8", (err, res) => {
-    //                     const jsContents = res.replace(/"id"/g, id);
-    //                     fs.writeFile(`./public/scripts/disks/${id}.js`, jsContents, err => {
-    //                         if (err) {
-    //                             console.log(err);
-    //                             return;
-    //                         }
-                            
-    //                         console.log("Successfully created JS file.");
-    //                     });
-    //                 });
-    //             });
-
-    //             res.status(200);
-    //             res.send("Successfully added product.")
-    //         }
-    //     }
-    // );
 });
 
-router.put("/update", async (req, res) => {
+/**
+ * Update disk.
+ * Admin authorization required.
+ */
+router.put("/update", utils.authenticateToken, async (req, res) => {
     try {
         let qry = 
             `UPDATE products SET name = '${req.body["name"]}', description = '${req.body["description"]}'` +
             `, category = '${req.body["category"]}', image = '${req.body["image"]}'` + 
             `, price = ${req.body["price"]} WHERE id = ${req.body["id"]}`;
-        let db = await DBConnect();
+        let db = await utils.DBConnect();
         await db.exec(qry);
 
         res.status(200).send("Disk updated");

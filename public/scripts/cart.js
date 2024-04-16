@@ -5,16 +5,14 @@ const cartContainer = document.getElementById("cart");
 const checkoutButton = document.getElementById("checkout-button");
 
 function removeDisk(id) {
-    const data = {
-        "id": id,
-        "JWT": JWT
-    }
+    const data = { "id": id }
 
     fetch("/carts/remove", {
         method: "delete",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': "Bearer " + JWT
         },
         body: JSON.stringify(data)})
         .then((res) => { 
@@ -84,7 +82,6 @@ function getCart() {
 checkoutButton.onclick = e => {
     const data = {
         "id": cartId,
-        "JWT": JWT,
         "price": parseFloat(document.getElementById("total").innerText)
     }
 
@@ -92,7 +89,8 @@ checkoutButton.onclick = e => {
         method: "post",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + JWT
         },
         body: JSON.stringify(data)})
         .then((res) => { 
