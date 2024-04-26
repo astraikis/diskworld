@@ -1,6 +1,22 @@
 const featuredRow = document.getElementById("collection-row");
 const featuredProducts = document.getElementById("product-grid");
 
+function populate() {
+    getFeaturedMovies();
+    getQuote();
+}
+
+function getQuote() {
+    fetch("https://www.whenisthenextmcufilm.com/api")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("title").innerText = data["title"];
+            document.getElementById("marvel-img").src = data["poster_url"];
+            document.getElementById("overview").innerText = data["overview"];
+            document.getElementById("days-until").innerText = data["days_until"] + " days until release";
+        });
+}
+
 function getFeaturedMovies() {
     fetch("/disks/featured")
         .then(res => res.json())
@@ -35,4 +51,4 @@ function getFeaturedMovies() {
         });
 }
 
-window.onload = getFeaturedMovies;
+window.onload = populate;

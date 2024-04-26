@@ -153,6 +153,17 @@ nav a:hover {
     margin-top: 0;
 }
 
+#marvel {
+  padding: 0.5rem 1rem;
+  background-color: var(--grey-dark);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+#marvel-img {
+  width: 100px;
+}
+
 /* Collections */
 
 .collection-container {
